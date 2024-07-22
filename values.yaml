@@ -27,7 +27,6 @@ service:
     port: 3000
     targetPort: 3000
     annotations: {}
-    name: s-1721662061
 
 ingress:
     enabled: true

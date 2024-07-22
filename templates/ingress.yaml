@@ -17,6 +17,7 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
+    app: {{ .Values.name }}
     {{- include "helm-chart.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
