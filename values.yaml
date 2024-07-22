@@ -1,7 +1,6 @@
 
 replicaCount: 1
 namespace: ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
-service: s-ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
 name: n-ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
 image:
     repository: mihacloud/1721641193
@@ -27,6 +26,7 @@ service:
     port: 3000
     targetPort: 3000
     annotations: {}
+    name: s-ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
 
 ingress:
     enabled: true
