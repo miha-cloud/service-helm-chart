@@ -1,14 +1,16 @@
 
 replicaCount: 1
+namespace: ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
+service: s-ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
+name: n-ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
 image:
-    repository: mihacloud/1721488291
+    repository: mihacloud/1721641193
     tag: latest
-
-namespace: default-namespace
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
 serviceAccount:
     create: true
     automount: true
@@ -22,7 +24,7 @@ securityContext: {}
 
 service:
     type: ClusterIP
-    port: 80
+    port: 3000
     targetPort: 3000
     annotations: {}
 
@@ -31,7 +33,7 @@ ingress:
     annotations: 
         kubernetes.io/ingress.class: nginx
     hosts:
-        - host: 1721488291.miha.cloud
+        - host: 1721641193.miha-clound.com
           paths: 
             - path: /
               pathType: ImplementationSpecific
@@ -40,13 +42,14 @@ ingress:
 resources: {}
 
 livenessProbe:
-httpGet:
-    path: /
-    port: http
+    httpGet:
+        path: /
+        port: http
+
 readinessProbe:
-httpGet:
-    path: /
-    port: http
+    httpGet:
+        path: /
+        port: http
 
 autoscaling:
     enabled: false
