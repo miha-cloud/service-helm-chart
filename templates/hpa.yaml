@@ -8,7 +8,7 @@ metadata:
     app: {{ .Values.name }}
 spec:
   hosts:
-    - 1721847287.miha-clound.com
+    - {{ .Values.host }}
   scaleTargetRef:
       deployment: {{ .Values.name }}
       service: {{ .Values.name }}
