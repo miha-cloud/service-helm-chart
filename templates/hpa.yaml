@@ -8,7 +8,9 @@ metadata:
     app: {{ .Values.name }}
 spec:
   hosts:
-    - {{ .Values.host }}
+    {{- range .Values.ingress.hosts }}
+    - {{ .host | quote }}
+    {{- end }}
   scaleTargetRef:
       deployment: {{ .Values.name }}
       service: {{ .Values.name }}
