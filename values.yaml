@@ -1,55 +1,66 @@
-affinity: {}
-autoscaling:
-  enabled: false
-  maxReplicas: 100
-  minReplicas: 1
-  targetCPUUtilizationPercentage: 80
-env:
-  ssss: ssss
-  uuuuuu: uuuuuu
-fullnameOverride: ''
-image:
-  repository: mihacloud/1721662061
-  tag: latest
-imagePullSecrets: []
-ingress:
-  annotations:
-    kubernetes.io/ingress.class: nginx
-  enabled: true
-  hosts:
-  - host: 1721662061.miha-clound.com
-    paths:
-    - path: /
-      pathType: ImplementationSpecific
-  tls: []
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-name: miha-1721662061
-nameOverride: ''
+
+replicaCount: 1
 namespace: ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
-nodeSelector: {}
+service: s-ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
+name: miha-1721754421
+image:
+    repository: mihacloud/1721754421
+    tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+    create: true
+    automount: true
+    annotations: {}
+    name: ""
+
 podAnnotations: {}
 podLabels: {}
 podSecurityContext: {}
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
-replicaCount: 1
-resources: {}
 securityContext: {}
+
 service:
-  annotations: {}
-  port: 3000
-  targetPort: 3000
-  type: ClusterIP
-serviceAccount:
-  annotations: {}
-  automount: true
-  create: true
-  name: ''
-tolerations: []
-volumeMounts: []
+    type: ClusterIP
+    port: 3000
+    targetPort: 3000
+    annotations: {}
+    name: s-1721754421
+
+ingress:
+    enabled: true
+    annotations: 
+        kubernetes.io/ingress.class: nginx
+    hosts:
+        - host: 1721754421.miha-clound.com
+          paths: 
+            - path: /
+              pathType: ImplementationSpecific
+    tls: []
+
+resources: {}
+
+livenessProbe:
+    httpGet:
+        path: /
+        port: http
+
+readinessProbe:
+    httpGet:
+        path: /
+        port: http
+
+autoscaling:
+    enabled: true
+    min: 1
+    max: 2
+    targetCPUUtilizationPercentage: 80
+
 volumes: []
+volumeMounts: []
+nodeSelector: {}
+tolerations: []
+affinity: {}
+                        

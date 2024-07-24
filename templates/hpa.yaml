@@ -8,12 +8,14 @@ metadata:
     app: {{ .Values.name }}
 spec:
   hosts:
-    - {{ .Values.ingress.hosts[0].host }}
+    {{- range .hosts }}
+    - {{ . | quote }}
+    {{- end }}
   scaleTargetRef:
-    scaleTargetRef:
-        deployment: {{ .Values.name }}
-        service: {{ .Values.name }}
-        port: {{ .Values.service.port }}
-    replicas:
-        min: {{ .Values.autoscaling.min }}    
-        max: {{ .Values.autoscaling.max }}
+      deployment: {{ .Values.name }}
+      service: {{ .Values.name }}
+      port: {{ .Values.service.port }}
+  replicas:
+      min: {{ .Values.autoscaling.min }}    
+      max: {{ .Values.autoscaling.max }}
+{{- end }}
