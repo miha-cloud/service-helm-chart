@@ -1,33 +1,19 @@
 {{- if .Values.autoscaling.enabled }}
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
+apiVersion: http.keda.sh/v1alpha1
+kind: HTTPScaledObject
 metadata:
   name: {{ include "helm-chart.fullname" . }}
   namespace: {{ .Values.namespace }}
   labels:
     app: {{ .Values.name }}
 spec:
+  hosts:
+    - {{ .Values.ingress.hosts[0].host }}
   scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: {{ include "helm-chart.fullname" . }}
-  minReplicas: {{ .Values.autoscaling.minReplicas }}
-  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
-  metrics:
-    {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
-    {{- end }}
-    {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
-    {{- end }}
-{{- end }}
+    scaleTargetRef:
+        deployment: {{ .Values.name }}
+        service: {{ .Values.name }}
+        port: {{ .Values.service.port }}
+    replicas:
+        min: {{ .Values.autoscaling.min }}    
+        max: {{ .Values.autoscaling.max }}
