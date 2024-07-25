@@ -17,14 +17,17 @@ def update_values_yaml(env_vars, values_path):
         yaml.safe_dump(values, values_file)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Update values.yaml with environment variables from Vault')
-    parser.add_argument('--vault_url', required=True, help='URL of the Vault server')
-    parser.add_argument('--token', required=True, help='Vault token')
-    parser.add_argument('--secret_path', required=True, help='Path to the secret in Vault')
-    parser.add_argument('--values_path', required=True, help='Path to the values.yaml file')
+    try: 
+        parser = argparse.ArgumentParser(description='Update values.yaml with environment variables from Vault')
+        parser.add_argument('--vault_url', required=True, help='URL of the Vault server')
+        parser.add_argument('--token', required=True, help='Vault token')
+        parser.add_argument('--secret_path', required=True, help='Path to the secret in Vault')
+        parser.add_argument('--values_path', required=True, help='Path to the values.yaml file')
 
-    args = parser.parse_args()
+        args = parser.parse_args()
 
-    env_vars = get_env_from_vault(args.vault_url, args.token, args.secret_path)
-    update_values_yaml(env_vars, args.values_path)
-    print(f"Updated {args.values_path} with environment variables from {args.secret_path}")
+        env_vars = get_env_from_vault(args.vault_url, args.token, args.secret_path)
+        update_values_yaml(env_vars, args.values_path)
+        print(f"Updated {args.values_path} with environment variables from {args.secret_path}")
+    except Exception as e:
+        print(f"Error: {e}")
