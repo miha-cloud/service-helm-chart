@@ -2,10 +2,14 @@
 replicaCount: 1
 namespace: ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
 service: s-ef855cef-1a01-4c30-9ba5-2ddef0b1e17b
-name: miha-1721754421
+name: miha-1722261721
+host: 1722261721.miha-clound.com
 image:
-    repository: mihacloud/1721754421
+    repository: mihacloud/1722261721
     tag: latest
+
+keda:
+    namespace: keda
 
 imagePullSecrets: []
 nameOverride: ""
@@ -32,15 +36,18 @@ ingress:
     enabled: true
     className: "nginx"
     annotations: 
-        kubernetes.io/ingress.class: nginx
+        kubernetes.io/ingress.class: "nginx"
     hosts:
-        - host: 1721754421.miha-clound.com
+        - host: 1722261721.miha-clound.com
           paths: 
             - path: /
               pathType: ImplementationSpecific
     tls: []
 
-resources: {}
+resources: 
+    limits:
+        cpu: 0.5
+        memory: 512Mi
 
 livenessProbe:
     httpGet:
@@ -54,8 +61,8 @@ readinessProbe:
 
 autoscaling:
     enabled: true
-    min: 1
-    max: 2
+    min: 0
+    max: 1
     targetCPUUtilizationPercentage: 80
 
 volumes: []
