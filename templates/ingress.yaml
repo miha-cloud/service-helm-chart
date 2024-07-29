@@ -26,7 +26,9 @@ metadata:
   {{- end }}
 spec:
   {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
-  ingressClassName: 'nginx'
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
+  {{- if .Values.ingress.defaultBackend.enabled }}
   {{- end }}
   {{- if .Values.ingress.ingressClassName }}
   {{- end }}
