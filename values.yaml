@@ -49,16 +49,6 @@ resources:
         cpu: 0.5
         memory: 512Mi
 
-livenessProbe:
-    httpGet:
-        path: /
-        port: http
-
-readinessProbe:
-    httpGet:
-        path: /
-        port: http
-
 autoscaling:
     enabled: true
     min: 0
